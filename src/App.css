@@ -1,0 +1,10 @@
+* {
+  box-sizing: border-box;
+  
+}
+a {
+  color: #FFF;
+}
+a:hover {
+   color: #FFF
+}
