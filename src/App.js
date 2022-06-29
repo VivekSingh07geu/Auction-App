@@ -10,6 +10,7 @@ import Add_Item from './components/Add_Item';
 import Login from './components/Login';
 import Get_Item from './components/Get_Item';
 import SignUp from './components/SignUp';
+import Add_Amount from './components/Add_Amount';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Header/>
 
           <Routes>
+            <Route exact path = "/add_amount" element = {<Add_Amount/>}/>
             <Route exact path = "/login" element = {<Login/>}/>
             <Route exact path = "/add_item" element = {<Add_Item/>}/>
             <Route exact path = "/get_item" element = {<Get_Item/>}/>

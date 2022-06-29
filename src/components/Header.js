@@ -1,55 +1,62 @@
 import React , { useEffect } from 'react'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
-import { selectUserName, selectUserPhoto, setSignOut, setUserLogin } from '../features/user/userSlice';
-import { auth , provider } from '../Firebase';
+import { selectUserAmount, selectUserEmail, setSignOut} from '../features/user/userSlice';
+// import { auth , provider } from '../Firebase';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Header() { 
     const dispatch = useDispatch();
-    const userName = useSelector(selectUserName);
-    const userPhoto = useSelector(selectUserPhoto);
+    // const userName = useSelector(selectUserName);
+    const userEmail = useSelector(selectUserEmail);
+    const userAmount = useSelector(selectUserAmount);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        auth.onAuthStateChanged(async (user) => {
-            if(user){
-                dispatch(setUserLogin({
-                    name: user.displayName,
-                    email: user.email,
-                    photo: user.photoURL
-                }))
-                navigate('/');
-            }
-        })
-    } ,[])
+    // useEffect(() => {
+    //     auth.onAuthStateChanged(async (user) => {
+    //         if(user){
+    //             dispatch(setUserLogin({
+    //                 // name: user.displayName,
+    //                 email: user.email
+    //                 // photo: user.photoURL
+    //             }))
+    //             navigate('/');
+    //         }
+    //     })
+    // } ,[])
 
 
-    const signIn = () => {
-        auth.signInWithPopup(provider)
-        .then((result) => {
-            let user = result.user
-            dispatch(setUserLogin({
-                name: user.displayName,
-                email: user.email,
-                photo: user.photoURL
-            }))
-            navigate('/');
-        })
-    }
+    // const signIn = () => {
+    //     auth.signInWithPopup(provider)
+    //     .then((result) => {
+    //         let user = result.user
+    //         dispatch(setUserLogin({
+    //             // name: user.displayName,
+    //             email: user.email
+    //             // photo: user.photoURL
+    //         }))
+    //         navigate('/');
+    //     })
+    // }
     
+    // console.log("In Header" , userEmail);
     const signOut = () => {
-        auth.signOut()
-            .then(()=> {
-               dispatch(setSignOut()); 
-               navigate("/login");
-        })
+            dispatch(setSignOut()); 
+           navigate("/login");
     }
+
+    console.log("Hello");
+    console.log(userEmail);
     return (
         <Nav>
             <Container>
                 <Logo>AUCTION</Logo>
                 <Items>
+                    <Link to = "/" style={{ textDecoration: 'none' }}>
+                        <a> 
+                            <span>Home</span> 
+                        </a>
+                    </Link>
                     <Link to = "/add_item" style={{ textDecoration: 'none' }}>
                         <a> 
                             <span>Add Product For Auction</span> 
@@ -60,20 +67,40 @@ function Header() {
                             <span>Get Your Products</span> 
                         </a>
                     </Link>
+                    <Link to = "/add_amount" style={{ textDecoration: 'none' }}>
+                        <a> 
+                            <span>Add Amount</span> 
+                        </a>
+                    </Link>
                 </Items>
             </Container>
-            <Right>
-                { !userName ? (
-                    <>
-                        <Login onClick={signIn}> Login </Login>
+            
+                { !userEmail ? (
+                    <Right>
                         <Link to = "/login">
                             <Login> Login </Login>
                         </Link>
-                    </>
-                ) : 
-                    <UserImg onClick = {signOut} src = {userPhoto}/>
+                    </Right>
+                ) : (
+                    <Wrap>
+                        <Email>Hello , {userEmail}</Email>
+                        <Balance>
+                            <Title>
+                                <span>Balance:</span>
+                            </Title>
+                            <IMG>
+                                <img src = "/LeetCoin.png" alt = "" />
+                            </IMG>
+                            <Amount>
+                                <span>{userAmount}</span>
+                            </Amount>
+                        </Balance>
+                        <div>
+                            <Login onClick = {signOut}> Logout </Login>
+                        </div>
+                    </Wrap>
+                    )
                 }
-            </Right>
         </Nav>
     )
 }
@@ -98,23 +125,57 @@ const Logo = styled.div`
     width: 100px;
     font-size: 30px;
 `
+const Email = styled.div`
+font-size: 13px;
+letter-spacing: 1.42px;
+display: flex;
+align-items: center;
+`
+
+const Balance = styled.div`
+    align-items: center;
+    display: flex;
+`
+const IMG = styled.div`
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+    img {
+        width: 25px;
+        height: 25px;
+    }
+`
+
+const Amount = styled.div`
+    display: flex;
+    align-itmes: center;
+    color: #ffd800;
+    span {
+        font-weight: bold;
+        font-size: 20px;
+    }
+`
+
+const Title = styled.div`
+    margin-right: 10px;
+`
+
 const Items = styled.div`
     display: flex;
     flex: 1;
-    margin-left: 25px;
+    margin-left: 50px;
     align-items: center;
 
     a {
         display: flex;
         align-items: center;
-        padding: 0 12px;
         cursor: pointer;
-
+        margin-right: 18px;
         img {
             height: 20px;
         }
         span {
-            font-size: 13px;
+            font-size: 14px;
             letter-spacing: 1.42px;
             position: relative;
 
@@ -145,6 +206,12 @@ const Right = styled.div`
 
 `
 
+const Wrap = styled.div`  
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+`
+
 const UserImg = styled.img`
     width : 48px;
     height: 48px;
@@ -152,7 +219,9 @@ const UserImg = styled.img`
     cursor: pointer;
 `
 
-const Login = styled.div`
+const Login = styled.button`
+    width: 100%;
+    height: 40px;
     border: 1px solid #f9f9f9;
     padding: 8px 16px;
     border-radius: 4px;
@@ -161,7 +230,7 @@ const Login = styled.div`
     background-color: rgba(0 , 0 , 0 , 0.6);
     transition: all 0.2s ease 0s;
     cursor: pointer;
-
+    color: white;
     &:hover {
         background-color: #f9f9f9;
         color: #000;
@@ -171,60 +240,3 @@ const Login = styled.div`
 const Add = styled.div`
     
 `
-
-// const NavMenu = styled.div`
-//     display: flex;
-//     flex: 1;
-//     margin-left: 25px;
-//     align-items: center;
-
-//     a {
-//         display: flex;
-//         align-items: center;
-//         padding: 0 12px;
-//         cursor: pointer;
-
-//         img {
-//             height: 20px;
-//         }
-//         span {
-//             font-size: 13px;
-//             letter-spacing: 1.42px;
-//             position: relative;
-
-//             &:after {
-//                 content: "";
-//                 height: 2px;
-//                 background: white;
-//                 position: absolute;
-//                 left: 0;
-//                 right: 0;
-//                 bottom : -6px;
-//                 opacity: 0;
-//                 transform-origin: left center;
-//                 transition: all 250ms cubic-bezier(0.25 , 0.46 , 0.45 , 0.94) 0s;
-//                 transform: scaleX(0);
-//             }
-//         }
-
-//         &:hover {
-//             span:after{
-//                 transform: scaleX(1);
-//                 opacity: 1;
-//             }
-//         }
-//     }
-// `
-// const UserImg = styled.img`
-//     width : 48px;
-//     height: 48px;
-//     border-radius: 50%;
-//     cursor: pointer;
-// `
-
-
-// const LoginContainer = styled.div`
-//     flex: 1;
-//     display: flex;
-//     justify-content: flex-end;
-// `

@@ -63,18 +63,27 @@ function Timer({countdownTimestampMs , id}) {
         
       }
 
-    
-
   return (
     <Container>
-        <span>{remainingTime.days}</span>
-        <span>days</span>
-        <span>{remainingTime.hours}</span>
-        <span>hours</span>
-        <span>{remainingTime.minutes}</span>
-        <span>minutes</span>
-        <span>{remainingTime.seconds}</span>
-        <span>seconds</span>
+        <Wrap>
+          <Time><span>{remainingTime.days}</span></Time>
+          <Tag><span>Days</span></Tag>
+        </Wrap>
+
+        <Wrap>
+          <Time><span>{remainingTime.hours}</span></Time>
+          <Tag><span>Hours</span></Tag>
+        </Wrap>
+        
+        <Wrap>
+          <Time><span>{remainingTime.minutes}</span></Time>
+          <Tag><span>Minutes</span></Tag>
+        </Wrap>
+        
+        <Wrap>
+          <Time><span>{remainingTime.seconds}</span></Time>
+          <Tag><span>Seconds</span></Tag>
+        </Wrap>
     </Container>
   )
 }
@@ -83,19 +92,54 @@ export default Timer
 
 
 const Container = styled.div`
-    width: 600px;
-    height: 100px;
-    border: 2px solid black;
-
+    width: 85%;
+    height: 85%;
+    // background-color: green;
     font-family: "Oswald";
     font-size: 30px;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 
     span{
         margin-left: 5px;
         margin-right: 5px;
     }
+
+`
+
+const Wrap = styled.div`
+background: white;
+border-radius: 10px;
+width: 15%;
+height: 100%;
+border: 3px solid rgba(249 , 249 , 249 , 0.1);
+box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+transition: all 250ms cubic-bezier(0.25 , 0.46 , 0.45 , 0.94) 0s;
+padding: 10px;
+margin: 15px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+`
+const Time = styled.div`
+display: flex;
+justify-content: center;
+span {
+    font-size: 60px;
+  }
+`
+const Tag = styled.div`
+display: flex;
+justify-content: center;  
+  span {
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    color: #989898;
+  }
+
 `

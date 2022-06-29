@@ -54,91 +54,95 @@ function Add_Item() {
   return (
         <Container>
             <Wrap>
+              <Wrapper1>
+                <img src = "/poster1.png" alt = "" />
+              </Wrapper1>
               <Wrapper>
                 <Heading>Add Item Details</Heading>
                 <Details className="constact100-form" onSubmit={handleSubmit}>
-                    <Left>
-                      <Field>
-                        <Label>Product Name</Label>
-                        <input 
-                          className="input100"
-                          type="text"
-                          name="name"
-                          placeholder="Enter Product Name"
-                          value = {user.name}
-                          onChange={getUserData}
-                          autoComplete="off"
-                          required
-                        />
-                        {/* <Label className="focus-input100"></Label> */}
-                      </Field>
-                      
-                      <Field>
-                        <Label>Email</Label>
-                        <input 
-                          className="input100"
-                          type="text"
-                          name="email"
-                          placeholder="Enter Your Email"
-                          value = {user.email}
-                          onChange={getUserData}
-                          autoComplete="off"
-                          required
-                        />
-                        {/* <Label className="focus-input100"></Label> */}
-                      </Field>
+                    <Box>
+                      <Left>
+                        <Field>
+                          <Label>Product Name</Label>
+                          <input 
+                            className="input100"
+                            type="text"
+                            name="name"
+                            placeholder="Enter Product Name"
+                            value = {user.name}
+                            onChange={getUserData}
+                            autoComplete="off"
+                            required
+                          />
+                          {/* <Label className="focus-input100"></Label> */}
+                        </Field>
+                        
+                        <Field>
+                          <Label>Email</Label>
+                          <input 
+                            className="input100"
+                            type="text"
+                            name="email"
+                            placeholder="Enter Your Email"
+                            value = {user.email}
+                            onChange={getUserData}
+                            autoComplete="off"
+                            required
+                          />
+                          {/* <Label className="focus-input100"></Label> */}
+                        </Field>
 
-                      <Field>
-                        <Label>Image</Label>
-                        <input 
-                          className="input100"
-                          type="text"
-                          name="img"
-                          placeholder="Enter Image URL"
-                          value = {user.img}
-                          onChange={getUserData}
-                          autoComplete="off"
-                          required
-                        />
-                        {/* <Label className="focus-input100"></Label> */}
-                      </Field>
+                        <Field>
+                          <Label>Image</Label>
+                          <input 
+                            className="input100"
+                            type="text"
+                            name="img"
+                            placeholder="Enter Image URL"
+                            value = {user.img}
+                            onChange={getUserData}
+                            autoComplete="off"
+                            required
+                          />
+                          {/* <Label className="focus-input100"></Label> */}
+                        </Field>
 
-                    </Left>
-                    <Right>
-                      <Field>
-                        <Label>Amount</Label>
-                        <input 
-                          className="input100"
-                          type="text"
-                          name="amount"
-                          placeholder="Enter Minimum Biding Amount"
-                          value = {user.amount}
-                          onChange={getUserData}
-                          autoComplete="off"
-                          required
-                        />
-                        {/* <Label className="focus-input100"></Label> */}
-                      </Field>  
+                      </Left>
+                      <Right>
+                        <Field>
+                          <Label>Amount</Label>
+                          <input 
+                            className="input100"
+                            type="text"
+                            name="amount"
+                            placeholder="Enter Minimum Biding Amount"
+                            value = {user.amount}
+                            onChange={getUserData}
+                            autoComplete="off"
+                            required
+                          />
+                          {/* <Label className="focus-input100"></Label> */}
+                        </Field>  
 
-                      <Field>
-                        <Label>Last Date</Label>
-                        <input 
-                          className="input100"
-                          type="text"
-                          placeholder='mm-dd-yyyy'
-                          name="date"
-                          value = {user.date}
-                          onChange={getUserData}
-                          autoComplete="off"
-                          required
-                        />
-                        {/* <Label className="focus-input100"></Label> */}
-                      </Field>
-                    </Right>
-                    
+                        <Field>
+                          <Label>Last Date</Label>
+                          <input 
+                            className="input100"
+                            type="text"
+                            placeholder='mm-dd-yyyy'
+                            name="date"
+                            value = {user.date}
+                            onChange={getUserData}
+                            autoComplete="off"
+                            required
+                          />
+                          {/* <Label className="focus-input100"></Label> */}
+                        </Field>
+                      </Right>
+                    </Box>
                     <Button type = 'submit'>Submit</Button>
-                    </Details>
                     
+                    </Details>
               </Wrapper>
             </Wrap>
         </Container>
@@ -154,7 +158,7 @@ min-height: calc(100vh - 70px);
 const Wrap = styled.div`
 top: 60px;
 left: 150px;
-min-height: calc(100vh - 210px);
+height: calc(100vh - 190px);
 margin-right: 300px;
 margin-bottom: 200px;
 position: relative;
@@ -165,9 +169,21 @@ border: 3px solid rgba(249 , 249 , 249 , 100);
 box-shadow: rgb(10 0 0 / 69%) 0px 100px 220px 90px,
 rgb(0 0 0 / 73%) 0px 0px 0px 0px;
 transition: all 250ms cubic-bezier(0.25 , 0.46 , 0.45 , 0.94) 0s;
-
+display: flex;
 `
+const Wrapper1 = styled.div`
+width: 50%;
+
+    img {
+        border-bottom-left-radius: 25px;
+        border-top-left-radius: 25px;
+        max-height: 100%;
+        display: block;
+    }
+`
+
 const Wrapper = styled.div`
+    width: 50%;
   margin-top: 30px;
   margin-left: 50px;
   margin-right: 50px;
@@ -184,10 +200,13 @@ letter-spacing: 6px;
 padding-left: 30px;
 `
 const Details = styled.form`
-display: flex;
 margin-right: 100px; 
-justify-content: space-between;
 margin-bottom: 30px;
+`
+
+const Box = styled.div`
+display: flex;
+justify-content: space-between;
 `
 const Left = styled.div`
 width: 400px; 

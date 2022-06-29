@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { selectUserDetails } from '../features/user/userDetailSlice'
+import { setUserLogin } from '../features/user/userSlice';
 
 function Login() {
-
+    const dispatch = useDispatch();
     const userDetails = useSelector(selectUserDetails);
 
     const [user , setUser] = useState({
@@ -21,25 +22,37 @@ function Login() {
   
       setUser({...user, [name]: value });
     }
-
+    var u_name = "abba_dabba_jabba";
+    var u_amount = "0";
     function handleSubmit(e){
         e.preventDefault();
-
         const {username , password} = user;
-
-        if(username && password){
-            
-            {userDetails && 
-                userDetails.map((userDetail) => (
-                    console.log(userDetails.username)
-                )); 
+        userDetails.map((e) => {
+            if(e.username === username && e.password === password){
+                u_name = "have";
+                u_amount = e.amount;
             }
-            
-        
+        })
+
+        if(u_name === "have"){
+            dispatch(setUserLogin({
+                // name: user.displayName,
+                email: user.username,
+                amount: u_amount,
+                // photo: user.photoURL
+            }))
+            navigate('/');
+
+            alert("Login Successfully");
         }
         else{
-            alert("Please fill all the data");
-        }    
+            alert("Please enter a valid username/password");
+        }
+
+        setUser({
+            username: "",
+            password: "",
+        });
     }
 
     return (
@@ -57,7 +70,7 @@ function Login() {
                         <form onSubmit={handleSubmit}>
                             <Input>
                                 <Description>
-                                    Username
+                                    Email
                                 </Description>
                                 <input 
                                     type = "text" 
@@ -189,7 +202,8 @@ const Input = styled.div`
 const Wrap = styled.div`
 width: 80%;
 height: 80%;
-margin: 80px;  
+margin: 80px;
+margin-left: 120px;  
 
 input {
     width: 300px;

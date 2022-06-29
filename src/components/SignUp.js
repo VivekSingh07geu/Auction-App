@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { selectUserDetails } from '../features/user/userDetailSlice';
+import { setUserLogin } from '../features/user/userSlice';
 import db from '../Firebase'
 
 function SignUp() {
+
+    const userDetails = useSelector(selectUserDetails);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
     const [user , setUser] = useState({
         username: "",
         password: "",
         amount: "0",
     })
-    const navigate = useNavigate();
+    
 
     let name, value;
     const getUserData = (event) => {
@@ -23,31 +31,51 @@ function SignUp() {
         e.preventDefault();
     
         const {username , password , amount} = user;
+        var check = "user_not_present_in_db";
 
-        if(username && password){
-            db.collection("users")
-            .add({
-                username , password , amount,
-            })
-            .then(() => {
-                alert("Sign Up Successfully")
-            })
-            .catch((error) => {
-                alert(error.message);
-            })
-
-            setUser({
-                username: "",
-                password: "",
-                amount: "0",
-              });
-            
-            navigate("/");
-        }
-        else{
-                alert("Please fill all the data");
+        userDetails.map((e) => {
+            if(e.username === username){
+                check = "user_present";
             }
-        }   
+        })
+
+        if(check === "user_present"){
+            alert("A user is already registered with this e-mail address. Please Login.");
+            navigate('/login');
+        }
+        else {
+
+            if(username && password){
+                db.collection("users")
+                .add({
+                    username , password , amount,
+                })
+                .then(() => {
+                    dispatch(setUserLogin({
+                        // name: user.displayName,
+                        email: username,
+                        amount: amount,
+                        // photo: user.photoURL
+                    }))
+                    alert("Sign Up Successfully")
+                })
+                .catch((error) => {
+                    alert(error.message);
+                })
+
+                setUser({
+                    username: "",
+                    password: "",
+                    amount: "0",
+                });
+                
+                navigate("/");
+            }
+            else{
+                    alert("Please fill all the data");
+                }
+        }
+    }   
       
     return (
         <Container>
@@ -64,7 +92,7 @@ function SignUp() {
                         <form onSubmit={handleSubmit}>
                             <Input>
                                 <Description>
-                                    Username
+                                    Email
                                 </Description>
                                 <input
                                     type = "text" 
@@ -197,6 +225,7 @@ const Wrap = styled.div`
 width: 80%;
 height: 80%;
 margin: 80px;  
+margin-left: 120px; 
 
 input {
     width: 300px;

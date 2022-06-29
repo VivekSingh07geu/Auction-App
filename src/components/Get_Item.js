@@ -7,7 +7,6 @@ import { selectUserEmail } from '../features/user/userSlice';
 function Get_Item() {
     const products = useSelector(selectProducts);
     const userEmail = useSelector(selectUserEmail);
-    console.log(products);
 
     return (
     <Container>
