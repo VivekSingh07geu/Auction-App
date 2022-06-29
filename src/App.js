@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
@@ -11,8 +11,46 @@ import Login from './components/Login';
 import Get_Item from './components/Get_Item';
 import SignUp from './components/SignUp';
 import Add_Amount from './components/Add_Amount';
+import { useDispatch } from 'react-redux';
+import db from './Firebase';
+import { setProducts } from './features/product/productSlice';
+import { setUserDetails } from './features/user/userDetailSlice';
+import { setUserLogin } from './features/user/userSlice';
 
 function App() {
+
+  const dispatch = useDispatch();
+
+    useEffect(() => {
+        db.collection("products").onSnapshot((snapshot)=>{
+            let tempProducts = snapshot.docs.map((doc)=>{
+                return { id: doc.id , ...doc.data() }
+            })
+
+            console.log(tempProducts);
+            dispatch(setProducts(tempProducts));
+        })
+
+        dispatch(setUserLogin({
+          // name: user.displayName,
+          email: localStorage.getItem("username"),
+          amount: localStorage.getItem("amount"),
+          // photo: user.photoURL
+      }))
+
+    }, [])
+
+    useEffect(() => {
+        db.collection("users").onSnapshot((snapshot)=>{
+            let tempUserDetails = snapshot.docs.map((doc)=>{
+                return { id: doc.id , ...doc.data() }
+            })
+
+            console.log(tempUserDetails);
+            dispatch(setUserDetails(tempUserDetails));
+        })
+    }, [])
+    
   return (
     <div className='App'>
       <Router>

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     // name: "",
     email: "",
-    amount: ""
+    amount: "0"
 }
 
 const userSlice = createSlice({
@@ -12,13 +12,19 @@ const userSlice = createSlice({
     reducers: {
         setUserLogin: (state , action) => {
             // state.name = action.payload.name;
+            localStorage.setItem("username" , action.payload.email);
+            localStorage.setItem("amount" , action.payload.amount);
             state.email = action.payload.email;
             state.amount = action.payload.amount;
         },
         setSignOut: (state) => {
             // state.name = null;
+            var val = "";
+            localStorage.setItem("username" , val);
+            val = "0";
+            localStorage.setItem("amount" , val);
             state.email = '';
-            state.amount = '';
+            state.amount = "0";
         }
     }
 })

@@ -35,8 +35,7 @@ function Home() {
     return (
         <Container>
             <IMG>
-                <img src ="/accelerate_guy.png" alt = ""/>
-                <img src = "/poster1.png" alt = ""/>
+                <img src ="/banner2.jpg" alt = ""/>
             </IMG>
             <Product />
         </Container>
@@ -49,13 +48,15 @@ const Container = styled.div`
     min-height: calc(100vh - 70px);
     padding: 0 calc(3.5vw + 5px);
     overflow-x: hidden;
+    
 `
 
 const IMG = styled.div`
     img {
         width: 100%;
         height: 100%;
-        margin-left: -20px;
+        margin-top: -65px;
+        padding: 30px;
     }
     
     margin: 20px;

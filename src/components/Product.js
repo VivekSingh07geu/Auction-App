@@ -34,6 +34,7 @@ function Product() {
 export default Product
 
 const Container = styled.div`
+
     margin-left: 15px;
     margin-right: 15px;
     margin-bottom: 50px;
@@ -41,7 +42,7 @@ const Container = styled.div`
 const Heading = styled.div`
     margin-top: 5px;
     margin-bottom: 35px;
-    margin-right: 608px;
+    margin-right: 542px;
     p{
         margin-left: 600px;
         text-transform: uppercase;

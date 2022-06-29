@@ -174,7 +174,7 @@ const CTA = styled.div`
 `
 
 const Log = styled.button`
-    width: 70%;
+    width: 75%;
     background-color: #FF00FF;
     font-weight: bold;
     padding: 17px 0;
@@ -216,7 +216,7 @@ justify-content: center;
 `
 
 const Title = styled.div`
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 `
 const Input = styled.div`
 `
@@ -239,14 +239,8 @@ input {
 }
 `
 
-const Fpas = styled.div`
-    width: 65%;
-    display: flex;
-    justify-content: end;
-`
-
 const NewUser = styled.div `
-    width: 52%;
+    width: 57%;
     display: flex;
     justify-content: space-between;
 `

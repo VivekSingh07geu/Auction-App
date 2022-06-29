@@ -110,11 +110,15 @@ const Container = styled.div`
 `
 
 const Wrap = styled.div`
-background: white;
+
+background: #FFEFBA;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+// background: white;
 border-radius: 10px;
 width: 15%;
 height: 100%;
-border: 3px solid rgba(249 , 249 , 249 , 0.1);
 box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
     rgb(0 0 0 / 73%) 0px 16px 10px -10px;
 transition: all 250ms cubic-bezier(0.25 , 0.46 , 0.45 , 0.94) 0s;

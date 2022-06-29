@@ -11,7 +11,12 @@ function Add_Item() {
     img: "",
     amount: "",
     date: "",
+    description: "",
   })
+
+  const biddingStatus = "1";
+  const highestBidder= "";
+  const status= "";
 
   let name, value;
   const getUserData = (event) => {
@@ -24,15 +29,23 @@ function Add_Item() {
   function handleSubmit(e){
     e.preventDefault();
 
-    const {name,email,img,amount,date} = user;
+    const {name,email,img,amount,date,description} = user;
     
-    if(name && email && img && amount && date){
+    if(name && email && img && amount && date && description){
         db.collection("products")
         .add({
-            name , email , img , amount ,date,
+            name, 
+            email, 
+            img, 
+            amount,
+            date, 
+            description,
+            biddingStatus,
+            highestBidder,
+            status,
         })
         .then(() => {
-            alert("Item Added")
+            alert("Product Added")
         })
         .catch((error) => {
             alert(error.message);
@@ -44,6 +57,7 @@ function Add_Item() {
         img: "",
         amount: "",
         date: "",
+        description: "",
       });
     }
     else{
@@ -55,11 +69,11 @@ function Add_Item() {
         <Container>
             <Wrap>
               <Wrapper1>
-                <img src = "/poster1.png" alt = "" />
+                <img src = "/add-item.jpg" alt = "" />
               </Wrapper1>
               <Wrapper>
-                <Heading>Add Item Details</Heading>
-                <Details className="constact100-form" onSubmit={handleSubmit}>
+                <Heading>Add Product Details</Heading>
+                <Details onSubmit={handleSubmit}>
                     <Box>
                       <Left>
                         <Field>
@@ -107,13 +121,14 @@ function Add_Item() {
                           {/* <Label className="focus-input100"></Label> */}
                         </Field>
 
+                        
                       </Left>
                       <Right>
                         <Field>
                           <Label>Amount</Label>
                           <input 
                             className="input100"
-                            type="text"
+                            type="number"
                             name="amount"
                             placeholder="Enter Minimum Biding Amount"
                             value = {user.amount}
@@ -138,10 +153,27 @@ function Add_Item() {
                           />
                           {/* <Label className="focus-input100"></Label> */}
                         </Field>
+
+                        <Field>
+                          <Label>Description</Label>
+                          <textarea 
+                            rows="5" 
+                            cols="4"
+                            type="text"
+                            placeholder='Add Description ....'
+                            name="description"
+                            value = {user.description}
+                            onChange={getUserData}
+                            autoComplete="off"
+                            required
+                          />
+                          {/* <Label className="focus-input100"></Label> */}
+                        </Field>
                       </Right>
                     </Box>
-                    <Button type = 'submit'>Submit</Button>
-                    
+                      <Add>
+                        <Button type = 'submit'>Submit</Button>
+                      </Add>
                     </Details>
               </Wrapper>
             </Wrap>
@@ -153,55 +185,65 @@ export default Add_Item
 
 const Container = styled.div`
 min-height: calc(100vh - 70px);
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+background: #A1FFCE;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 `
 
 const Wrap = styled.div`
+background-color: white;
 top: 60px;
 left: 150px;
-height: calc(100vh - 190px);
-margin-right: 300px;
-margin-bottom: 200px;
-position: relative;
-
-border-radius: 20px;
+height: calc(100vh - 195px);
+width: 65%;
+border-radius: 25px;
 overflow: hidden;
-border: 3px solid rgba(249 , 249 , 249 , 100);
 box-shadow: rgb(10 0 0 / 69%) 0px 100px 220px 90px,
 rgb(0 0 0 / 73%) 0px 0px 0px 0px;
 transition: all 250ms cubic-bezier(0.25 , 0.46 , 0.45 , 0.94) 0s;
 display: flex;
 `
 const Wrapper1 = styled.div`
-width: 50%;
+width: 20%;
 
     img {
         border-bottom-left-radius: 25px;
         border-top-left-radius: 25px;
-        max-height: 100%;
+        height: 100%;
         display: block;
     }
 `
 
 const Wrapper = styled.div`
-    width: 50%;
-  margin-top: 30px;
-  margin-left: 50px;
-  margin-right: 50px;
+    width: 74%;
+    margin-left: 70px;
+    margin-right: 50px;
 
-  min-height: calc(100vh - 320px);
-  // background-color: blue; 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  min-height: calc(100vh - 320px); 
+  
   `
 const Heading = styled.div`
-font-size: 32px;
-letter-spacing: 6px;
-padding-left: 30px;
+font-size: 35px;
+font-weight: lighter;
+border-bottom: 1px solid black;
+letter-spacing: 3px;
+margin-left: 170px;
+margin-right: 220px;
+margin-top: 40px;
+margin-bottom: 20px;
 `
 const Details = styled.form`
-margin-right: 100px; 
 margin-bottom: 30px;
+height:70%;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
 `
 
 const Box = styled.div`
@@ -216,10 +258,11 @@ width: 400px;
 `
 
 const Label = styled.span`
-margin-left: 5px;
-color: black;
+margin-left: 3px;
+margin-bottom: 3px;
+font-size: 13px;
+font-weight: 500;
 letter-spacing: 1px;
-font-size: 14px;
 `
 const Field = styled.div`
 top:0;
@@ -230,12 +273,40 @@ display: flex;
 flex-direction: column;
 
 input{
-  border-color: transparent; 
-  border-bottom: 1px solid black;
   width: 300px;
-  letter-spacing: 1px;
-  font-size: 18px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    padding: 5px 12px;
+    line-height: 20px;
+    border-radius: 6px;
+    border: 3px solid #EEEDE7;
+    outline: none;
+
+  // border-color: transparent; 
+  // border-bottom: 1px solid black;
+  // width: 300px;
+  // letter-spacing: 1px;
+  // font-size: 18px;
 }
+  textarea{
+    width: 300px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    padding: 5px 12px;
+    line-height: 20px;
+    border-radius: 6px;
+    border: 3px solid #EEEDE7;
+    outline: none;
+    resize: none;
+  }
+
+`
+const Add = styled.div`
+  display: flex;
+  justify-content: end;
+
+  padding-right: 40px;
+
 `
 const Button = styled.button`
 margin-left: 25px;

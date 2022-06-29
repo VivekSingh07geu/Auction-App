@@ -50,7 +50,11 @@ function Header() {
     return (
         <Nav>
             <Container>
-                <Logo>AUCTION</Logo>
+                <Logo>
+                    <LOGO_IMG>
+                        <img src = "/logo.png" alt = "" />
+                    </LOGO_IMG>
+                </Logo>
                 <Items>
                     <Link to = "/" style={{ textDecoration: 'none' }}>
                         <a> 
@@ -77,6 +81,9 @@ function Header() {
             
                 { !userEmail ? (
                     <Right>
+                        <Link to = "/signup">
+                            <Login> sign Up </Login>
+                        </Link>
                         <Link to = "/login">
                             <Login> Login </Login>
                         </Link>
@@ -120,14 +127,29 @@ const Nav = styled.div`
 `
 const Container = styled.div`
     display: flex;
+    // background-color: white;
+    width: 70%;
 `
 const Logo = styled.div`
-    width: 100px;
-    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 20%;
+    height: 50px;
+    position: relative;
 `
+const LOGO_IMG = styled.div`
+    position: absolute;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+`
+
 const Email = styled.div`
 font-size: 13px;
-letter-spacing: 1.42px;
+letter-spacing: 1.20px;
 display: flex;
 align-items: center;
 `
@@ -152,7 +174,7 @@ const Amount = styled.div`
     color: #ffd800;
     span {
         font-weight: bold;
-        font-size: 20px;
+        font-size: 18px;
     }
 `
 
@@ -161,9 +183,10 @@ const Title = styled.div`
 `
 
 const Items = styled.div`
+    
     display: flex;
     flex: 1;
-    margin-left: 50px;
+    margin-left: 30px;
     align-items: center;
 
     a {
@@ -175,8 +198,8 @@ const Items = styled.div`
             height: 20px;
         }
         span {
-            font-size: 14px;
-            letter-spacing: 1.42px;
+            font-size: 13px;
+            letter-spacing: 1.20px;
             position: relative;
 
             &:after {
@@ -203,11 +226,13 @@ const Items = styled.div`
     }
 `
 const Right = styled.div`
-
+    display: flex;
+    justify-content: space-between;
+    width: 14%;
 `
 
 const Wrap = styled.div`  
-    width: 35%;
+    width: 38%;
     display: flex;
     justify-content: space-between;
 `

@@ -153,7 +153,7 @@ const CTA = styled.div`
 `
 
 const Log = styled.button`
-    width: 70%;
+    width: 75%;
     background-color: #0063e5;
     font-weight: bold;
     padding: 17px 0;
@@ -168,12 +168,12 @@ const Log = styled.button`
     border: transparent;
 
     &:hover {
-        background: #0483ee;
+        background: #0063e5;
     }
 `
 const Description = styled.p`
     font-size: 13px;
-    letter-spacing: 1.4px;
+    letter-spacing: 1.2px;
     color: #989898;
 `
 const Left = styled.div`
@@ -194,7 +194,7 @@ justify-content: center;
 `
 
 const Title = styled.div`
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 `
 const Input = styled.div`
 `
@@ -218,14 +218,14 @@ input {
 `
 
 const Fpas = styled.div`
-    
-width: 70%;
+    width: 75%;
     display: flex;
     justify-content: end;
+    margin-bottom: -15px;
 `
 
 const NewUser = styled.div `
-    width: 30%;
+    width: 32%;
     display: flex;
     justify-content: space-between;
 `

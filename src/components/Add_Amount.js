@@ -69,7 +69,7 @@ function Add_Amount() {
                         <Title>
                             <h1>My wallet</h1>
                             <Description>Balance</Description>
-                            <Amount><span>₹{userAmount ? {userAmount} : 0}.00</span></Amount>
+                            <Amount><span>₹{userAmount}.00</span></Amount>
                         </Title>
                         <Form onSubmit = {handleSubmit}>
                             <Input>
@@ -77,7 +77,7 @@ function Add_Amount() {
                                     Amount
                                 </Name>
                                 <input 
-                                    type = "text" 
+                                    type = "number" 
                                     placeholder='Enter Amount'
                                     value = {money}
                                     name = "money"
@@ -123,6 +123,9 @@ function Add_Amount() {
                             </Info>
                             
                             <Log type = 'submit'>Add Amount</Log>
+                            <Name>
+                                Note: Just enter amount correctly and enter anything in other fields;
+                            </Name>
                         </Form>
                     </Wrap>
                 </Right>
@@ -134,7 +137,11 @@ function Add_Amount() {
 export default Add_Amount
 
 const Container = styled.div`
-    background-color: #C0C0C0;
+background: #00C9FF;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    // background-color: #C0C0C0;
     position: relative;
     height: calc(100vh - 70px);
     display: flex;
@@ -195,16 +202,16 @@ const Description = styled.p`
 const Amount = styled.div`
 display: flex;
 justify-content: center;
-margin-top: -10px;
+margin-top: -15px;
 margin-bottom: -55px;
 width: 90%;
 span{
   font-size: 35px;
-  letter-spacing: 1.05px;
+  letter-spacing: 0.5px;
 }
 `
 const Name = styled.div`
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 1.4px;
   color: #989898;
   margin-left: 3px;
@@ -239,7 +246,7 @@ const Info = styled.div`
 `
 
 const Title = styled.div`
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 `
 const Input = styled.div`
 input {

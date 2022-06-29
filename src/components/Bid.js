@@ -31,7 +31,12 @@ function Bid() {
 
     // Date Checking and Updating
         var date = new Date(product.date);
-        var milliseconds = date.getTime();
+
+        /* Adding 1 more day to correct display time */
+        var temp = new Date(product.date);
+        temp.setDate(temp.getDate() + 1)
+        
+        var milliseconds = temp.getTime();
         const product_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
     
         const current = new Date();
@@ -65,7 +70,7 @@ function Bid() {
             })
             
         }
-        else if(product.biddingStatus === "0" && (current_date < product_date)){
+        else if(product.biddingStatus === "0" && (current_date <= product_date)){
             const biddingStatus = "1";
             db.collection('products')
             .doc(id)
@@ -181,11 +186,7 @@ function Bid() {
                                 <Description>Current Sold Price</Description>
                                 <Price><span>₹{product.amount}.00</span></Price>
                                 <About>
-                                    Wikis are enabled by wiki software, 
-                                    otherwise known as wiki engines.
-                                    A wiki engine, being a form of a content management system, 
-                                    differs from other web-based systems such as blog software, 
-                                   
+                                    {product.description}
                                 </About>
                                 <Price><span>{status}</span></Price>
                                 <form onSubmit = {handleSubmit}>
@@ -221,8 +222,11 @@ export default Bid
 const Container = styled.div`
     height: calc(100vh - 70px);
     display: flex;
-    // background: linear-gradient(to right, #00c3ff, #ffff1c);
-    background-color: #f5f5f5;
+
+    background: #C6FFDD;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 
 `
 
@@ -239,6 +243,8 @@ const Wrap1 = styled.div`
     display: flex; 
     flex-direction: column;
     justify-content: center;
+
+    
 `
 const Wrap2 = styled.div`
 width: 50%;
@@ -247,7 +253,6 @@ width: 50%;
 const Wrap2Mid = styled.div`
     margin-top: 50px;
     width: 60%;
-
     // padding: 15px;
     // margin-top: 50px;
     // width: 70%;
@@ -264,6 +269,7 @@ const CountDown = styled.div`
     justify-content: center;
     // background-color: white;
     height: 25%;
+    margin-top: 10px;
 `
 
 const Image = styled.div`
@@ -280,12 +286,10 @@ const Image = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
     img {
         max-width: 100%;
         max-height: 100%;
     } 
-
 `
 
 const Name = styled.div`
@@ -293,7 +297,9 @@ const Name = styled.div`
     text-transform: uppercase;
     font-size: 25px;
     font-weight: lighter;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid black;
+    display: table-cell;
 `
 
 const Price = styled.div`
@@ -349,12 +355,9 @@ const Log = styled.button`
     letter-spacing: 4.8px;
     margin-top: 18px;
     border: transparent;
-
     &:hover {
         background: #800000;
     }
 `
-
-
 
 
